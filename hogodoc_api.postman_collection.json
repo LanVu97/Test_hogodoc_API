@@ -1,0 +1,2464 @@
+{
+	"info": {
+		"_postman_id": "abbb72b2-833d-4057-954e-77fcd6ea3927",
+		"name": "hogodoc_api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28903061"
+	},
+	"item": [
+		{
+			"name": "Positive case",
+			"item": [
+				{
+					"name": "Login with all required fields",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=UTF-8\");\r",
+									"});\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"const schema = {\r",
+									"    \"status\": \"string\",\r",
+									"    \"token\": \"string\"\r",
+									"};\r",
+									"\r",
+									"pm.test(\"Validate schema\", () => {\r",
+									"    pm.response.to.have.jsonSchema(schema);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Token is a non-empty string\", function(){\r",
+									"    pm.expect(jsonData.token).to.have.lengthOf.at.least(1,\"Token should not be empty\");\r",
+									"})\r",
+									"pm.environment.set(\"token\", jsonData.token);\r",
+									"// console.log(jsonData.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "EmailAddress",
+									"value": "tuyetphong001@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "Password",
+									"value": "e10adc3949ba59abbe56e057f20f883e",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/Login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Login"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login with all fields",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=UTF-8\");\r",
+									"});\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"const schema = {\r",
+									"    \"status\": \"string\",\r",
+									"    \"token\": \"string\"\r",
+									"};\r",
+									"\r",
+									"pm.test(\"Validate schema\", () => {\r",
+									"    pm.response.to.have.jsonSchema(schema);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Token is a non-empty string\", function(){\r",
+									"    pm.expect(jsonData.token).to.have.lengthOf.at.least(1,\"Token should not be empty\");\r",
+									"})\r",
+									"pm.environment.set(\"token\", jsonData.token);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "EmailAddress",
+									"value": "tuyetphong001@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "Password",
+									"value": "e10adc3949ba59abbe56e057f20f883e",
+									"type": "text"
+								},
+								{
+									"key": "KeepMeLogin",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/Login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Login"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDocumentListDetail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Response has fields - status, document_detail\", function () {\r",
+									"    pm.expect(jsonData.status).to.be.exist.and.to.eql(\"OK\");\r",
+									"     pm.expect(jsonData.document_detail).to.be.exist;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.environment.set(\"totalDoc\", jsonData.totalResult);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "SessionID",
+									"value": "{{token}}",
+									"type": "text"
+								},
+								{
+									"key": "DisplayLength",
+									"value": "11",
+									"type": "text"
+								},
+								{
+									"key": "DisplayStart",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "sEcho",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/GetDocumentListDetail",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"GetDocumentListDetail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDocumentDetail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has right Document ID\", function () {\r",
+									"    var requestBody = pm.request.body.urlencoded.toObject();\r",
+									"    var DocumentID = requestBody.DocumentID; \r",
+									"\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.detail[DocumentID]).to.exist;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "SessionID",
+									"value": "{{token}}",
+									"type": "text"
+								},
+								{
+									"key": "DocumentID",
+									"value": "d1bbff9d4cbd4b7797235556be11afc0",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/GetDocumentDetail",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"GetDocumentDetail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDocumentListDetail with all valid values fields",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Response has fields - status, document_detail\", function () {\r",
+									"    pm.expect(jsonData.status).to.be.exist.and.to.eql(\"OK\");\r",
+									"     pm.expect(jsonData.document_detail).to.be.exist;\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "SessionID",
+									"value": "{{token}}",
+									"type": "text"
+								},
+								{
+									"key": "DisplayLength",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "DisplayStart",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "sEcho",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "SearchString",
+									"value": "\"title\"",
+									"type": "text"
+								},
+								{
+									"key": "SortType",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/GetDocumentListDetail",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"GetDocumentListDetail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDocumentListDetail with SearchString has special characters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Response has fields - status, document_detail\", function () {\r",
+									"    pm.expect(jsonData.status).to.be.exist.and.to.eql(\"OK\");\r",
+									"     pm.expect(jsonData.document_detail).to.be.exist;\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "SessionID",
+									"value": "{{token}}",
+									"type": "text"
+								},
+								{
+									"key": "DisplayLength",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "DisplayStart",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "sEcho",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "SearchString",
+									"value": "-",
+									"type": "text"
+								},
+								{
+									"key": "SortType",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/GetDocumentListDetail",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"GetDocumentListDetail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDocumentListDetail with SearchString is in sensitive case",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Response has fields - status, document_detail\", function () {\r",
+									"    pm.expect(jsonData.status).to.be.exist.and.to.eql(\"OK\");\r",
+									"     pm.expect(jsonData.document_detail).to.be.exist;\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "SessionID",
+									"value": "{{token}}",
+									"type": "text"
+								},
+								{
+									"key": "DisplayLength",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "DisplayStart",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "sEcho",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "SearchString",
+									"value": "Title",
+									"type": "text"
+								},
+								{
+									"key": "SortType",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/GetDocumentListDetail",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"GetDocumentListDetail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDocumentListDetail with SearchString has multiple words",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Response has fields - status, document_detail\", function () {\r",
+									"    pm.expect(jsonData.status).to.be.exist.and.to.eql(\"OK\");\r",
+									"     pm.expect(jsonData.document_detail).to.be.exist;\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "SessionID",
+									"value": "{{token}}",
+									"type": "text"
+								},
+								{
+									"key": "DisplayLength",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "DisplayStart",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "sEcho",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "SearchString",
+									"value": "long name",
+									"type": "text"
+								},
+								{
+									"key": "SortType",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/GetDocumentListDetail",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"GetDocumentListDetail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDocumentListDetail with SearchString has leading and trailing spaces",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Response has fields - status, document_detail\", function () {\r",
+									"    pm.expect(jsonData.status).to.be.exist.and.to.eql(\"OK\");\r",
+									"     pm.expect(jsonData.document_detail).to.be.exist;\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "SessionID",
+									"value": "{{token}}",
+									"type": "text"
+								},
+								{
+									"key": "DisplayLength",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "DisplayStart",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "sEcho",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "SearchString",
+									"value": " long ",
+									"type": "text"
+								},
+								{
+									"key": "SortType",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/GetDocumentListDetail",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"GetDocumentListDetail"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Negative case",
+			"item": [
+				{
+					"name": "Login with all blank fields",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=UTF-8\");\r",
+									"});\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"status response\", function () {\r",
+									"    pm.expect(jsonData.status).to.be.exist.and.to.eql(\"InputParameterError\");\r",
+									"    \r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "EmailAddress",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "Password",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/Login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Login"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login when adding undefined fields",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=UTF-8\");\r",
+									"});\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"status response\", function () {\r",
+									"    pm.expect(jsonData.status).to.be.exist.and.to.eql(\"InputParameterError\");\r",
+									"    \r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "EmailAddress",
+									"value": "tuyetphong001@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "Password",
+									"value": "e10adc3949ba59abbe56e057f20f883e",
+									"type": "text"
+								},
+								{
+									"key": "Username",
+									"value": "tuyetphong001",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/Login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Login"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login when input invalid value type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=UTF-8\");\r",
+									"});\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"response message\", function () {\r",
+									"    pm.expect(jsonData.status_desc).to.be.exist.and.to.eql(\"Password did not match\");\r",
+									"    \r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "EmailAddress",
+									"value": "tuyetphong001",
+									"type": "text"
+								},
+								{
+									"key": "Password",
+									"value": "123456",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/Login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Login"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login with account does not exist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=UTF-8\");\r",
+									"});\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "EmailAddress",
+									"value": "test@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "Password",
+									"value": "e10adc3949ba59abbe56e057f20f883e",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/Login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Login"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login with EmailAdress is blank",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=UTF-8\");\r",
+									"});\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"status response\", function () {\r",
+									"    pm.expect(jsonData.status).to.be.exist.and.to.eql(\"InputParameterError\");\r",
+									"    \r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "EmailAddress",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "Password",
+									"value": "e10adc3949ba59abbe56e057f20f883e",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/Login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Login"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login with wrong EmailAdress",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=UTF-8\");\r",
+									"});\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"status response\", function () {\r",
+									"    pm.expect(jsonData.status).to.be.exist.and.to.eql(\"InputParameterError\");\r",
+									"    \r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "EmailAddress",
+									"value": "tuyetphong00@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "Password",
+									"value": "e10adc3949ba59abbe56e057f20f883e",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/Login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Login"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login when invalid required fields",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=UTF-8\");\r",
+									"});\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"status response\", function () {\r",
+									"    pm.expect(jsonData.status).to.be.exist.and.to.eql(\"InputParameterError\");\r",
+									"    \r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "EmailAddress",
+									"value": "tuyetphong00",
+									"type": "text"
+								},
+								{
+									"key": "Password",
+									"value": "12345",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/Login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Login"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login with Password is blank",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=UTF-8\");\r",
+									"});\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"status response\", function () {\r",
+									"    pm.expect(jsonData.status).to.be.exist.and.to.eql(\"InputParameterError\");\r",
+									"    \r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "EmailAddress",
+									"value": "tuyetphong001@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "Password",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/Login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Login"
+							],
+							"query": [
+								{
+									"key": "EmailAddress",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login with wrong Password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=UTF-8\");\r",
+									"});\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"status response\", function () {\r",
+									"    pm.expect(jsonData.status).to.be.exist.and.to.eql(\"WrongPassword\");\r",
+									"    \r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "EmailAddress",
+									"value": "tuyetphong001@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "Password",
+									"value": "12345",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/Login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Login"
+							],
+							"query": [
+								{
+									"key": "EmailAddress",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDocumentListDetail with invalid token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=UTF-8\");\r",
+									"});\r",
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "SessionID",
+									"value": "fffffffffffffffff",
+									"type": "text"
+								},
+								{
+									"key": "DisplayLength",
+									"value": "11",
+									"type": "text"
+								},
+								{
+									"key": "DisplayStart",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "sEcho",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/GetDocumentListDetail",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"GetDocumentListDetail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDocumentListDetail unsuccessfully when adding undefined fields",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=UTF-8\");\r",
+									"});\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "SessionID",
+									"value": "{{token}}",
+									"type": "text"
+								},
+								{
+									"key": "DisplayLength",
+									"value": "11",
+									"type": "text"
+								},
+								{
+									"key": "DisplayStart",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "sEcho",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "Sort",
+									"value": "asc",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/GetDocumentListDetail",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"GetDocumentListDetail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDocumentListDetail unsuccessfully when leave required fields empty",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=UTF-8\");\r",
+									"});\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "SessionID",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "DisplayLength",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "DisplayStart",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "sEcho",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/GetDocumentListDetail",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"GetDocumentListDetail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDocumentListDetail with blank sessionId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=UTF-8\");\r",
+									"});\r",
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "SessionID",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "DisplayLength",
+									"value": "11",
+									"type": "text"
+								},
+								{
+									"key": "DisplayStart",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "sEcho",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/GetDocumentListDetail",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"GetDocumentListDetail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDocumentListDetail with blank DisplayLength",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=UTF-8\");\r",
+									"});\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "SessionID",
+									"value": "{{token}}",
+									"type": "text"
+								},
+								{
+									"key": "DisplayLength",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "DisplayStart",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "sEcho",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/GetDocumentListDetail",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"GetDocumentListDetail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDocumentListDetail unsuccessfully when 'DisplayLength' field is 0",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=UTF-8\");\r",
+									"});\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "SessionID",
+									"value": "{{token}}",
+									"type": "text"
+								},
+								{
+									"key": "DisplayLength",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "DisplayStart",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "sEcho",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/GetDocumentListDetail",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"GetDocumentListDetail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDocumentListDetail with blank DisplayStart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=UTF-8\");\r",
+									"});\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "SessionID",
+									"value": "{{token}}",
+									"type": "text"
+								},
+								{
+									"key": "DisplayLength",
+									"value": "12",
+									"type": "text"
+								},
+								{
+									"key": "DisplayStart",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "sEcho",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/GetDocumentListDetail",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"GetDocumentListDetail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDocumentListDetail unsuccessfully when value of 'DisplayStart' field is larger than total document",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=UTF-8\");\r",
+									"});\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"let counter = parseInt(pm.environment.get(\"totalDoc\")) || 0;\r",
+									"\r",
+									"// Calculate the incremented value\r",
+									"let incrementedValue = counter + 1;\r",
+									"\r",
+									"pm.environment.set(\"DisplayStart\", incrementedValue);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "SessionID",
+									"value": "{{token}}",
+									"type": "text"
+								},
+								{
+									"key": "DisplayLength",
+									"value": "12",
+									"type": "text"
+								},
+								{
+									"key": "DisplayStart",
+									"value": "{{DisplayStart}}",
+									"type": "text"
+								},
+								{
+									"key": "sEcho",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/GetDocumentListDetail",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"GetDocumentListDetail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDocumentListDetail with blank sEcho",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=UTF-8\");\r",
+									"});\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "SessionID",
+									"value": "{{token}}",
+									"type": "text"
+								},
+								{
+									"key": "DisplayLength",
+									"value": "12",
+									"type": "text"
+								},
+								{
+									"key": "DisplayStart",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "sEcho",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/GetDocumentListDetail",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"GetDocumentListDetail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDocumentListDetail with expired token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=UTF-8\");\r",
+									"});\r",
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "SessionID",
+									"value": "token_expired",
+									"type": "text"
+								},
+								{
+									"key": "DisplayLength",
+									"value": "11",
+									"type": "text"
+								},
+								{
+									"key": "DisplayStart",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "sEcho",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/GetDocumentListDetail",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"GetDocumentListDetail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDocumentListDetail unsuccessfully when adding undefined fields",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=UTF-8\");\r",
+									"});\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "SessionID",
+									"value": "{{token}}",
+									"type": "text"
+								},
+								{
+									"key": "DisplayLength",
+									"value": "q",
+									"type": "text"
+								},
+								{
+									"key": "DisplayStart",
+									"value": "q",
+									"type": "text"
+								},
+								{
+									"key": "sEcho",
+									"value": "q",
+									"type": "text"
+								},
+								{
+									"key": "SearchString",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "SortType",
+									"value": "q",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/GetDocumentListDetail",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"GetDocumentListDetail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDocumentDetail unsuccessfully when leave required fields empty",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=UTF-8\");\r",
+									"});\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "SessionID",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "DocumentID",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/GetDocumentDetail",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"GetDocumentDetail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDocumentDetail unsuccessfully when leave 'SessionID' field empty",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=UTF-8\");\r",
+									"});\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "SessionID",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "DocumentID",
+									"value": "d1bbff9d4cbd4b7797235556be11afc0",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/GetDocumentDetail",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"GetDocumentDetail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDocumentDetail unsuccessfully with invalid 'SessionID'",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=UTF-8\");\r",
+									"});\r",
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "SessionID",
+									"value": "22222222222222222",
+									"type": "text"
+								},
+								{
+									"key": "DocumentID",
+									"value": "d1bbff9d4cbd4b7797235556be11afc0",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/GetDocumentDetail",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"GetDocumentDetail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDocumentDetail unsuccessfully with 'SessionID' is expired",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=UTF-8\");\r",
+									"});\r",
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "SessionID",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "DocumentID",
+									"value": "d1bbff9d4cbd4b7797235556be11afc0",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/GetDocumentDetail",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"GetDocumentDetail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDocumentDetail unsuccessfully when leave 'DocumentID' field empty",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=UTF-8\");\r",
+									"});\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "SessionID",
+									"value": "{{token}}",
+									"type": "text"
+								},
+								{
+									"key": "DocumentID",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/GetDocumentDetail",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"GetDocumentDetail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDocumentDetail unsuccessfully when 'DocumentID' field is not exist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\",\"application/json;charset=UTF-8\");\r",
+									"});\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "SessionID",
+									"value": "{{token}}",
+									"type": "text"
+								},
+								{
+									"key": "DocumentID",
+									"value": "ffff",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/GetDocumentDetail",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"GetDocumentDetail"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
